@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>resume</title>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		#head{
+			width: 100%;
+			height: 60px;
+			font-size: 10;
+			/*background-color: #ccc;*/
+		}
+		.left{
+			float: left;
+			height: 60px;
+			line-height: 60px;
+		}
+		.right{
+			float: right;
+			width:450px;
+			height: 60px;
+			line-height: 60px;
+			background-color: #ccc;
+
+		}
+		.right>div{
+			float:left;
+			margin: 0 8px;
+		}
+		#nav>ul{
+			position:absolute;
+			top:130px;
+			left:10px;
+			list-style:none; 
+		}
+		#nav>ul li{
+			margin: 35px 0px;
+
+		}
+		#nav>ul li:after{
+			width:0px;
+			position:absolute;
+			left: 80px;
+			border: solid transparent;
+			border-width: 10px;
+			border-left-color: #ccc;
+			border-top-color: #fff;
+			border-bottom-color: #fff;
+			content: '';
+		}
+		.hidden{
+			position:absolute;
+			width: 181px;
+			height: 115px;
+			right:0px;
+			bottom: 0px;
+		}
+		.hid{
+			position:relative;
+			width: 180px;
+			background-color: #ddd;
+			height: 36px;
+			line-height: 36px;
+			text-indent: 5px;
+			margin-bottom: 3px;
+			border-width: 1px 1px 1px 0px;
+			border-style:solid; 
+			border-color: #535353;
+		}
+		.hid:after,.hid:before{
+			width: 0px;
+			border: solid transparent;
+			position:absolute;
+			right:100%;
+			content: '';
+
+		}
+		.hid:after{
+			border-right-color: #DDD;
+			border-width: 18px;
+			top:0px;
+
+
+		}
+		.hid:before{
+			border-right-color: #000;
+			border-width: 19px;
+			top:-1px;
+		}
+	</style>
+</head>
+<body>
+	<div id="head">
+		<div class="left">
+			个人简历
+		</div>
+		<div class="right">
+			<div class="del">电话号码:12345678901
+			</div>
+			<div class="email">邮箱:54321@123.com
+			</div>
+		</div>
+	</div>
+	<div class="hidden">
+		<div class="hid"><span>点击显示联系方式</span></div>
+		<div class="hid"><p>cel:12345678901</p></div>
+		<div class="hid"><p>E-mail:54321@123.com</p></div>
+	</div>
+	<div id="nav">	
+		<ul>
+			<li>基本信息</li>
+			<li>求职意向</li>
+			<li>教育背景</li>
+			<li>个人技能</li>
+			<li>自我评价</li>
+		</ul>
+	</div>
+	<div id="main">
+		<div class="ma"></div>
+		<div class="ma"></div>
+		<div class="ma"></div>
+		<div class="ma"></div>
+		<div class="ma"></div>
+	</div>
+</body>
+</html>
