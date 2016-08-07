@@ -50,11 +50,13 @@
 	}
 	nav{
 		position:fixed;
+		/*top:130px;*/
 		left:10px;
 		z-index: 50;
 	}
-	nav ul{			
-		list-style:none; 
+	nav ul{
+			
+			list-style:none; 
 	}
 	nav ul li{
 		margin: 35px 0px;
@@ -66,6 +68,7 @@
 	}
 	nav ul li a{
 		display: none;
+		position: relative;
 	}
 	nav ul li:before{
 		content: "";
@@ -77,7 +80,7 @@
 		width: 12px;
 		height: 12px;
 	}
-	/*利用两个伪类元素做带小圆点圆环按钮。但是没弄懂，当class在标签上添加时，top值会出错*/
+	/*利用两个伪类元素做带小圆点圆环按钮。但是没弄懂top值设置，是一像素一像素调的，囧。*/
 	.show:after{
 		content: "";
 		position: absolute;
@@ -90,17 +93,42 @@
 	}
 	#main{
 		width: 100%;
-		margin: 0 auto;	
+		margin: 0 auto;
+		/*background-color: #ddd;*/
+		
 		font-size: 25px;
 		font-weight: 900; 
+		
 	}
 	#main>div{
 		padding-top:80px;
 		margin-top: 40px;
 		background:linear-gradient( #22C3AA,#1EE);
+		/*padding-bottom: 30px;*/
+		/*background-color: red;*/
+		/*margin: 1px;*/
+		/*width: 600px;*/
+
+	}
+	#main>div p{
+		/*padding: 10px 0px;
+		height: 50px;
+		margin-bottom: 15px;*/
+	}
+	.div_1{
+		/*-moz-column-count:2;*/ /* Firefox */
+		/*-webkit-column-count:2;*/ /* Safari 和 Chrome */
+		/*column-count: 2;*/
 	}
 	.div_1 p{
-		float: left;		
+		/*padding: 25px 0px;
+		height: 50px;*/
+		/*margin-bottom: 15px;
+		margin: 1px;*/
+		/*background-color: red;*/
+		/*display: inline;*/
+		float: left;
+		
 	}
 	.div_2 p{
 		margin: 35px;
@@ -116,7 +144,7 @@
 		position: relative;
 	}
 	#d5 ul li{
-		margin: 0px 70px;
+		margin: 0px 70px 70px 50px;
 		list-style: none;
 	}
 	footer{
@@ -137,11 +165,11 @@
 	}
 </style>
 <script>
-	var MARGIM_LEFT=60;
-	var MARGIM_TOP=70;
+	var margin_left=60;
+	var margin_top=70;
 	var A=-2;
 	var B=830;
-	var RADIUS=6;
+	var radius=6;
 	var nowTime=new Date();
 	var endTime=nowTime.getTime()+19000;
 	var curShowTime=0;
@@ -151,16 +179,13 @@
 		welcome();
 		var inheight=document.documentElement.clientHeight;
 		var inwidth=document.documentElement.clientWidth;
+		// console.log(inheight);
 		var divh=inheight-120;
 		var main=document.getElementById('main');
 		var mdiv=main.getElementsByTagName('div');
-		var p1=mdiv[0].getElementsByTagName('p');
-		var p2=mdiv[1].getElementsByTagName('p');
-		var p3=mdiv[2].getElementsByTagName('p');
-		var p4=mdiv[3].getElementsByTagName('p');
-		var d5_li=mdiv[4].getElementsByTagName('ul')[0].getElementsByTagName("li");
-		//  定义每页div高度、内填充
+		// 第一页面排版
 		for (var i = 0; i < mdiv.length; i++) {
+			// mdiv[i].style.height=divh-122+"px";
 			mdiv[i].style.paddingLeft=inwidth*0.2+"px";
 			mdiv[i].style.paddingRight=inwidth*0.2+"px";
 			if (i==mdiv.length-1) {
@@ -169,79 +194,103 @@
 				mdiv[i].style.height=divh+"px";
 			}	
 		}
-		//	定义p标签宽高
+		var p1=mdiv[0].getElementsByTagName('p');
 		for (var i = 0; i < p1.length; i++) {
 			p1[i].style.height=(divh-30)/4+'px' ;
-			p1[i].style.width=inwidth*0.25+'px';
-		}
-		for (var i = 0; i < p2.length; i++) {
-			p2[i].style.width=inwidth*0.5+'px';
-		}
-		p3[0].style.width=inwidth*0.5+'px';
-		p4[0].style.width=inwidth*0.5+'px';
-		for (var i = 0; i < d5_li.length; i++) {
-			d5_li[i].style.height=(divh-30)/5+'px' ;
-			d5_li[i].style.width=inwidth*0.5+'px';
+			p1[i].style.width=inwidth*0.3+'px';
 		}
 		// 导航栏事件绑定
-		// 绑定移入事件
-		var nav=document.getElementById('nav');
+		// 移入事件
+		var nav=document.getElementsByTagName('nav')[0];
 		var ul=nav.getElementsByTagName('ul')[0];
 		var li=ul.getElementsByTagName('li');
 		var a=null;
+		var nav=document.getElementById("nav");
 		nav.style.top=(inheight-nav.offsetHeight)/2+'px';
+		console.log(nav.offsetTop);
+		console.log(nav.offsetHeight);
+
 		for (var i = 0; i < li.length; i++) {
 			a=li[i].getElementsByTagName('a')[0];
-			(function (li,a) {
-				li.onmouseover=function () {
+			(function (ll,a) {
+				ll.onmouseover=function () {
 				a.style.display="inline";
-				li.className=li.className+" show";
+				ll.className=ll.className+" show";
 				}
 			})(li[i],a);	
 		}
 		li[0].className=li[0].className+" show";
-		// 绑定移出事件
+		// 移出事件
 		for (var i = 0; i < li.length; i++) {
 			(function (l,a) {
 				l.onmouseout=function () {
 				var sTop=document.body.scrollTop||document.documentElement.scrollTop;
+				var nav=document.getElementsByTagName('nav')[0];
+				var ul=nav.getElementsByTagName('ul')[0];
 				var li=ul.getElementsByTagName('li');
 				for (var i = 0; i < li.length; i++) {
 					removeCls(li[i],"show");
 					li[i].getElementsByTagName('a')[0].style.display="none";
+				
 				}
 				li[Math.round(sTop/inheight)].getElementsByTagName('a')[0].style.display="inline";
+				// console.log(sTop/inheight);
 				li[Math.round(sTop/inheight)].className=li[Math.ceil(sTop/inheight)].className+" show";
 				}
 			})(li[i],a);	
 		}
-		// 绑定点击事件
+		//移除class函数
+		function removeCls(obj,cls) {
+			var clss=obj.className.split(" ");
+			for (var i = 0; i < clss.length; i++) {
+				if (clss[i]==cls) {
+					clss.splice(i,1);
+					break;
+				} 
+			}
+			var cla="";
+			for (var i = 0; i < clss.length; i++) {
+				cla=" "+clss[i]
+			}
+			obj.className=cla;
+		}
+		// 点击事件
 		for (var i = 0; i < li.length; i++) {
-			li[i].index=i;
+			l=li[i];
+			l.index=i;
 			(function (l) {
 				l.onmouseup=function () {
 					document.body.scrollTop=l.index*inheight;
 					var sTop=document.body.scrollTop||document.documentElement.scrollTop;
+					var nav=document.getElementsByTagName('nav')[0];
+					var ul=nav.getElementsByTagName('ul')[0];
 					var li=ul.getElementsByTagName('li');
 					for (var i = 0; i < li.length; i++) {
 						removeCls(li[i],"show");
 						li[i].getElementsByTagName('a')[0].style.display="none";
+					
 					}
 					l.getElementsByTagName('a')[0].style.display="inline";
-					l.className=l.className+" show";
+					// console.log(sTop/inheight);
+					l.className=li[Math.ceil(sTop/inheight)].className+" show";
 				}
-			})(li[i]);	
+			})(l);	
 		}
-		//绑定鼠标滚动事件
+		//鼠标滚动事件
 		var before_sTop=document.body.scrollTop||document.documentElement.scrollTop;
 		var d5T=null;
 		window.onscroll=function () {
 			var sTop=document.body.scrollTop||document.documentElement.scrollTop;
+			var nav=document.getElementsByTagName('nav')[0];
+			var ul=nav.getElementsByTagName('ul')[0];
+			var li=ul.getElementsByTagName('li');
 			for (var i = 0; i < li.length; i++) {
 				removeCls(li[i],"show");
 				li[i].getElementsByTagName('a')[0].style.display="none";
+	
 			}
 			li[Math.round(sTop/inheight)].getElementsByTagName('a')[0].style.display="inline";
+			// console.log(sTop/inheight);
 			li[Math.round(sTop/inheight)].className=li[Math.ceil(sTop/inheight)].className+" show";
 			if (sTop%inheight>0.4*inheight&&before_sTop<sTop) {
 				var sTend=Math.ceil(sTop/inheight)*inheight; 
@@ -260,7 +309,7 @@
 				var con2=document.getElementById("con2");
 				con2.innerHTML=con1.innerHTML;
 				d5T=setInterval(function () {
-					if (d5.scrollTop>=con1.offsetHeight) {
+					if (d5.scrollTop>=con1.offsetHeight+70) {
 						d5.scrollTop=0;
 					}else{
 						d5.scrollTop++;
@@ -268,7 +317,7 @@
 				},50)
 			}
 		}
-		console.log("很高兴您能愿意查看我的代码,经验不足,作品尚有很多不如人意的地方,像是拖动滚动条时页面滑动出错,像是手机端显示优化,或是ie的优化等等,很希望能得到您的指点.当然,如果能给我个工作学习的机会那真是极好的！");
+		
 		//定义页面滑动函数
 		var t=null;
 		function animation(obj,end,math) {
@@ -286,42 +335,20 @@
 					document.body.scrollTop=obj;
 					document.documentElement.scrollTop=obj;
 				}
-			},15);
+			},10);
 		}
 	}
-	//移除class函数
-	function removeCls(obj,cls) {
-		var clss=obj.className.split(" ");
-		for (var i = 0; i < clss.length; i++) {
-			if (clss[i]==cls) {
-				clss.splice(i,1);
-				break;
-			} 
-		}
-		var cla="";
-		for (var i = 0; i < clss.length; i++) {
-			cla=" "+clss[i]
-		}
-		obj.className=cla;
-	}
-	window.onbeforeunload = function (e) { 
-		e = e || window.event; 
-		// For IE and Firefox prior to version 4 
-		if (e) { 
-		e.returnValue = '若您觉得我还不能达标，恳请您能指点一二，这样在我努力之后，或许能更接近贵公司所需要的水平'; 
-		} 
 
-		// For Safari 
-		return '若您觉得我还不能达标，恳请您能指点一二，这样在我努力之后，或许能更接近贵公司所需要的水平'; 
-	};
+	
+	
 	function welcome() {	
+		// clearTimeout();
 		var parent=document.getElementById('welcome');
 		var pi=parent.getElementsByTagName('p');
 		var m=0;
-		var t=null,d=null;
 		var show=function() {
+			var t,d;
 			clearTimeout(t);
-			clearTimeout(d);
 			for (var i = 0; i < pi.length; i++) {
 				pi[i].style.display='none';
 			}
@@ -330,14 +357,16 @@
 			if(m<pi.length){
 				t=setTimeout(show,4000);
 			}else{
-				d=setTimeout(function () {
+				setTimeout(function () {
 					parent.style.display="none";
 					document.getElementById("canvasT").style.display="none";
 				},3000);
 			}
 		}
 		show();
+
 		// 倒计时
+
 		var cvas=document.getElementById("canvasT");
 		var ctx=cvas.getContext("2d");
 		curShowTime=getShowTime();
@@ -345,48 +374,21 @@
 			render(ctx);
 			update();
 		},50)
+
 	}
-	//更新数据
-	function update() {
-		var nextShowTime=getShowTime();
-		if (nextShowTime!=curShowTime) {
-			if (parseInt(nextShowTime/10)!=parseInt(curShowTime/10)) {
-				addBalls(MARGIM_LEFT,MARGIM_TOP,parseInt(curShowTime/10))
-			}
-			if (nextShowTime%10!=curShowTime%10) {
-				addBalls(MARGIM_LEFT+15*(RADIUS+1),MARGIM_TOP,parseInt(curShowTime%10))
-			}
-			curShowTime=nextShowTime;
-		}
-		updateBalls();
-	}
-	//渲染
-	function render(ctx) {
-		ctx.clearRect(0,0,400,300);
-		renderDigit(MARGIM_LEFT,MARGIM_TOP,parseInt(curShowTime/10),ctx);
-		renderDigit(MARGIM_LEFT+15*(RADIUS+1),MARGIM_TOP,curShowTime%10,ctx);
-		for (var i = 0; i < balls.length; i++) {
-			ctx.fillStyle=balls[i].color;
-			ctx.beginPath();
-			ctx.arc(balls[i].x,balls[i].y,RADIUS,0,2*Math.PI);
-			ctx.fill();
-		}
-	} 
-	//获取显示时间
 	function getShowTime() {
 		var curTime=new Date();
 		var ret=endTime-curTime.getTime();
 		var ret=Math.round(ret/1000);
 		return ret>0?ret:0;
 	}
-	//添加小球
 	function addBalls(x,y,num) {
 		for (var i = 0; i < digit[num].length; i++) {
 			for (var j = 0; j < digit[num][i].length; j++) {
 				if (digit[num][i][j]==1) {
 					var newBall={
-						x:x+j*2*(RADIUS+1)+(RADIUS+1),
-						y:y+i*2*(RADIUS+1)+(RADIUS+1),
+						x:x+j*2*(radius+1)+(radius+1),
+						y:y+i*2*(radius+1)+(radius+1),
 						g:1.5+Math.random()*1.5,
 						vx:Math.pow(-1,Math.ceil(Math.random()*1000))*5,
 						vy:-Math.round(Math.random()*6),
@@ -397,18 +399,17 @@
 			}
 		}
 	}
-	//小球碰撞检测
 	function updateBalls() {
 		for (var i = 0; i < balls.length; i++) {
 			balls[i].x+=balls[i].vx;
 			balls[i].y+=balls[i].vy;
 			balls[i].vy+=balls[i].g;
-			if (balls[i].y>=300-RADIUS) {
-				balls[i].y=300-RADIUS
+			if (balls[i].y>=300-radius) {
+				balls[i].y=300-radius
 				balls[i].vy=-balls[i].vy*0.6;
 			}
-			if (balls[i].x>=400-RADIUS) {
-				balls[i].x=400-RADIUS
+			if (balls[i].x>=400-radius) {
+				balls[i].x=400-radius
 				balls[i].vx=-balls[i].vx;
 			}
 			if (balls[i].y>=A*balls[i].x+B) {
@@ -420,30 +421,54 @@
 				}
 			}
 		}
-		//更新删除无用小球
 		var cnt=0
 		for (var i = 0; i < balls.length; i++) {
-			if(balls[i].x+RADIUS>0&&balls[i].x-RADIUS<400)
+			if(balls[i].x+radius>0&&balls[i].x-radius<400)
 				balls[cnt++]=balls[i]
 			}
 			while(balls.length>cnt){
 				balls.pop();
 		}
 	}
-	//绘制显示时间的小球
+	function update() {
+		var nextShowTime=getShowTime();
+		if (nextShowTime!=curShowTime) {
+			if (parseInt(nextShowTime/10)!=parseInt(curShowTime/10)) {
+				addBalls(margin_left,margin_top,parseInt(curShowTime/10))
+			}
+			if (nextShowTime%10!=curShowTime%10) {
+				addBalls(margin_left+15*(radius+1),margin_top,parseInt(curShowTime%10))
+			}
+			curShowTime=nextShowTime;
+		}
+		updateBalls();
+	}
+	function render(ctx) {
+		ctx.clearRect(0,0,400,300);
+		renderDigit(margin_left,margin_top,parseInt(curShowTime/10),ctx);
+		renderDigit(margin_left+15*(radius+1),margin_top,curShowTime%10,ctx);
+		for (var i = 0; i < balls.length; i++) {
+			ctx.fillStyle=balls[i].color;
+			ctx.beginPath();
+			ctx.arc(balls[i].x,balls[i].y,radius,0,2*Math.PI);
+			ctx.fill();
+		}
+	}
 	function renderDigit(x,y,num,ctx) {
 		ctx.fillStyle="rgb(0,102,153)";
+		// console.log(num);
 		for (var i = 0; i < digit[num].length; i++) {
 			for (var j = 0; j < digit[num][i].length; j++) {
 				if(digit[num][i][j]==1){
 					ctx.beginPath();
-					ctx.arc(x+j*2*(RADIUS+1)+(RADIUS+1),y+i*2*(RADIUS+1)+(RADIUS+1),RADIUS,0,2*Math.PI);
+					ctx.arc(x+j*2*(radius+1)+(radius+1),y+i*2*(radius+1)+(radius+1),radius,0,2*Math.PI)
 					ctx.fill();
 				}
 			}
 		}
+
 	}
-	//存储数字矩阵
+	//digit
 	digit=
 		[
 			[
@@ -568,7 +593,7 @@
 			]//9
 		];
 </script>
-<body>
+<body onbeforeunload="return '若您觉得我还不能达标，恳请您能指点一二，这样在我努力之后，或许能更接近贵公司所需要的水平';">
 	<div id="welcome">
 		<p>感谢您能查看我拙劣的简历</p>
 		<p>不善言辞的我并不知道该如何写出吸引人的简历</p>
