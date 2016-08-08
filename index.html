@@ -23,7 +23,7 @@
 		background:linear-gradient( #22C3AA,#1EE);
 		/*display: none;*/
 	}
-	#welcome p{
+	#welcome>p{
 		width:34% ;
 		text-align: center;
 		margin: auto;
@@ -38,6 +38,14 @@
 		position: fixed;
 		left: 0px;
 		bottom:0px;
+	}
+	#next{
+		width: 100px;
+		height: 100px;
+		position: absolute;
+		right: 5%;
+		bottom: 5%;
+		z-index: 200;
 	}
 	header{
 		width: 100%;
@@ -149,6 +157,15 @@
 	const colors=["#33B5E5","#A6C","#09C","#93C","#9C0","#690","#FB3","#F44","#C00","#F80"];
 	window.onload=function () {
 		welcome();
+		window.onkeyup=function (e) {
+			var wel=document.getElementById("welcome");
+			var keynum=e.keyCode||e.which;
+			if (keynum==27) {
+				clearTimeout(t);
+				wel.style.display="none";
+			}
+			
+		}
 		var inheight=document.documentElement.clientHeight;
 		var inwidth=document.documentElement.clientWidth;
 		var divh=inheight-120;
@@ -196,6 +213,7 @@
 				li.onmouseover=function () {
 				a.style.display="inline";
 				li.className=li.className+" show";
+				li.style.cursor="pointer";
 				}
 			})(li[i],a);	
 		}
@@ -221,6 +239,7 @@
 			(function (l) {
 				l.onmouseup=function () {
 					document.body.scrollTop=l.index*inheight;
+					document.documentElement.scrollTop=l.index*inheight;;
 					var sTop=document.body.scrollTop||document.documentElement.scrollTop;
 					var li=ul.getElementsByTagName('li');
 					for (var i = 0; i < li.length; i++) {
@@ -575,8 +594,11 @@
 		<p>我也知道一份网页版简历所能体现的东西非常有限</p>
 		<p>但缺乏经验的我也只能以这样的方式尽可能的让自己的简历不那么单薄</p>
 		<p>真心的希望能得到您的指点</p>
+		<canvas id="canvasT" width="400" height="300"></canvas>
+		<div id="next"><span>点击Esc跳过</span></div>
 	</div>
-	<canvas id="canvasT" width="400" height="300"></canvas>
+	
+
 	<header>2016应届生李岩的简历</header>
 	<nav id="nav">
 		<ul>
@@ -606,15 +628,15 @@
 			<p>毕业时间：2016-7</p>
 			<p>实习经验：2015年4月至5月，在中软国际有限公司实习。实习时使用html辅助制作简单商品销售平台页面。</p>
 		</div>
-		<div class="div_3"><p><!-- 到专业技能方面了，每次说到这个我都心虚，看各大招聘网站几乎所有招聘要求，都需要精通/熟练若干个方面，标准真的好高，囧。厚着脸皮说一句自己 -->熟练使用html/css,熟悉javascript,熟悉jquery，了解html5/css3新特性，了解ajax，对http、tcp/ip、ftp等协议有一定了解，熟练使用dreamweaver和Sublime Text</p></div>
+		<div class="div_3"><p><!-- 到专业技能方面了，每次说到这个我都心虚，看各大招聘网站几乎所有招聘要求，都需要精通/熟练若干个方面，标准真的好高，囧。厚着脸皮说一句自己 -->熟练使用html/css,熟悉javascript,熟悉jquery，了解html5/css3新特性，对html5的重要标签canvas有一定实用经验，了解ajax，对http、tcp/ip、ftp等协议有一定了解，了解简单git命令并有简单使用经验，熟练使用dreamweaver和Sublime Text</p></div>
 		<div class="div_4">
-			<p>能吃苦，有毅力，乐观向上，学习能力优秀，做事认真负责，有良好的团队意识。好奇心强，学习时喜欢追根究底。对前端有浓厚兴趣，喜欢找到问题并解决时的成就感。</p>
+			<p>比前端前辈有活力有可塑性，比在校学生更多的时间和精力。能吃苦，有毅力，乐观向上，学习能力优秀，做事认真负责，有良好的团队意识。好奇心强，学习时喜欢追根究底。对前端有浓厚兴趣，喜欢找到问题并解决时的成就感。</p>
 		</div>
 		<div class="div_5" id="d5">
 			<ul id="con1">
 				<li>工作地点：北京</li>
 				<li>应聘职位：web前端</li>
-				<li>期望薪资：3000~4000</li>
+				<!-- <li>期望薪资：3000~4000</li> -->
 				<li>期望类型：全职</li>
 				<li>但若贵公司有个优秀的团队</li>
 				<li>想要找个能吃苦耐劳、勤奋好学的新人来培养</li>
@@ -628,7 +650,7 @@
 	</div>
 	<footer>
 		<div>
-			<p>©2016.8 李岩</p>
+			<p>&#169;2016.8 李岩</p>
 			<p>电话:15804037341</p>
 			<p>E-mail:515882343@qq.com</p>
 		</div>
